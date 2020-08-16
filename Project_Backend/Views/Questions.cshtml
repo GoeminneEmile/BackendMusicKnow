@@ -1,0 +1,81 @@
+﻿@model IList<Project_Backend.Models.Models.Questions>
+@{ ViewData["Title"] = "Questions";
+                var counter = 0; }
+
+<h1>Add questions to quiz @ViewBag.QuizName</h1>
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<form asp-action="AddQuestionToQuiz" enctype="multipart/form-data">
+    <input name="quizname" value="@ViewBag.QuizName" style="display:none;" hidden />
+    <input name="quizdescript" value="@ViewBag.QuizDescript" style="display:none;" hidden />
+    <input name="quizdiff" value="@ViewBag.QuizDiff" style="display:none;" hidden />
+    @for (var i = 0; i < Model.Count; i++)
+    {
+<input asp-for="@Model[i].QuizId" value="@ViewBag.QuizId" style="display:none;" hidden />
+                <input asp-for="@Model[i].AnswerId" value="@Model[i].AnswerId" style="display:none;" hidden />
+                                <div class="form-group">
+                                    <h2>Question @(i+1)</h2>
+                                    <div class="form-group">
+                                        <label asp-for="@Model[i].QuestionName">Question name</label>
+                                        <input asp-for="@Model[i].QuestionName" type="text" class="form-control" placeholder="Enter question name" required>
+                                        <span asp-validation-for="@Model[i].QuestionName" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="@Model[i].QuestionName" class="control-label"></label>
+                                        <span asp-validation-for="@Model[i].QuestionName" class="text-danger"></span>
+                                    </div>
+                                    <h3>Answers:</h3>
+                                    @{
+                                                        @for (var ianswer = 0; ianswer < @Model[i].Answers.Count; ianswer++)
+                                                        {
+                                        <div class="form-group">
+                                            <input asp-for="@Model[i].Answers[ianswer].AnswerId" value="@Guid.NewGuid()" style="display:none;" hidden />
+                                            <input asp-for="@Model[i].Answers[ianswer].QuestionId" value="@Model[i].AnswerId" style="display:none;" hidden />
+                                            <input asp-for="@Model[i].Answers[ianswer].AnswerN" type="text" class="form-control" placeholder="Enter answer" required><br />
+                                            <span asp-validation-for="@Model[i].Answers[ianswer].AnswerN" class="text-danger"></span>
+                                            <select asp-for="@Model[i].Answers[ianswer].Correct" asp-items="Html.GetEnumSelectList<Project_Backend.Models.Models.Answer.State>()" required>
+                                                <option value="" disabled selected hidden>-- Is this answer correct? --</option>
+                                            </select>
+                                            <span asp-validation-for="@Model[i].Answers[ianswer].Correct" class="text-danger"></span>
+                                        </div> if (counter == 1)
+                                                            {
+                                        <div class="w-100"></div>                        counter++;
+                                                            }
+                                                            else
+                                                            {
+                                                                counter++;
+                                                            }
+                                                        } counter = 0; }
+
+                                </div>
+                                                <hr />}
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>
+<div>
+    <a asp-action="MyQuizzes">Back to MyQuizzes</a>
+</div>
+<script>const imageChosen = function () {
+        if (this.files.length == 0) {
+            var inputId = document.getElementById(this.getAttribute("data-guid"));
+            inputId.value = 0;
+        }
+        else {
+            var inputId = document.getElementById(this.getAttribute("data-guid"));
+            inputId.value = 1;
+        }
+    }
+
+    const init = function () {
+        try
+        {
+            var inputimages = document.querySelectorAll('.questionImage');
+            for (let inputimage of inputimages) {
+                inputimage.addEventListener('change', imageChosen);
+            };
+        }
+        catch (e)
+        {
+        }
+    }
+    document.addEventListener("DOMContentLoaded", init)</script>

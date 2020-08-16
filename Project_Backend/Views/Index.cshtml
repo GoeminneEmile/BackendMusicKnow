@@ -1,0 +1,17 @@
+﻿@model IEnumerable<Project_Backend.Models.Models.Quizzes>
+@{ ViewData["Title"] = "Index";
+                Layout = "~/Views/Shared/_Layout.cshtml"; }
+<h1>MyQuizzes</h1>
+@if (!Model.Any())
+{
+<div>
+    <p>Er zijn nog geen quizzes aangemaakt.</p>
+    <p>De eerste quiz moet nog worden aangemaakt.</p>
+    <a href="/Quiz/CreateQuiz">Add new quiz</a>
+</div> }
+            else
+            {
+<div>
+    <a href="/Quiz/CreateQuiz">Add new quiz</a>
+</div>
+                <partial name="~/Views/Shared/_TableQuizzes.cshtml" model="@Model" />}

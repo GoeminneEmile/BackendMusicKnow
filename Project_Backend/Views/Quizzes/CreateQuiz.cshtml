@@ -1,0 +1,33 @@
+﻿@model Project_Backend.Models.Models.Quizzes
+@{
+    ViewData["Title"] = "CreateQuiz";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>CreateQuiz</h1>
+<form asp-action="CreateQuiz" enctype="multipart/form-data">
+    <input asp-for="@Model.QuizId" value="@Guid.NewGuid()" style="display:none;" hidden />
+    <div class="form-group">
+        <label asp-for="@Model.Name">Quiz name</label>
+        <input asp-for="@Model.Name" type="text" class="form-control" placeholder="Enter quizname" required>
+        <span asp-validation-for="@Model.Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Description">Quiz description</label>
+        <input asp-for="@Model.Description" type="text" class="form-control" placeholder="Enter quizdiscription" required>
+        <span asp-validation-for="@Model.Description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.QuestionCount">Total questions</label>
+        <input asp-for="@Model.QuestionCount" type="number" class="form-control" placeholder="Enter number of questions" min="1" max="10" required>
+        <span asp-validation-for="@Model.QuestionCount" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Difficulty" class="control-label">How difficult is this quiz?</label>
+        <select asp-for="@Model.Difficulty" asp-items="Html.GetEnumSelectList<Project_Backend.Models.Models.Quizzes.Difficulties>()" required>
+            <option value="" disabled selected hidden>-- Difficulty --</option>
+        </select>
+        <span asp-validation-for="@Model.Difficulty" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Add questions and answers</button>
+</form>

@@ -1,0 +1,63 @@
+﻿@model IEnumerable< Project_Backend.Models.Models.Score>
+@{
+    ViewData["Title"] = "ScoresQuiz";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>ScoresQuiz</h1>
+@if (!Model.Any())
+{
+    <div>
+        <p>Er zijn nog geen quizzes aangemaakt.</p>
+        <p>De eerste quiz moet nog worden aangemaakt.</p>
+        @Html.ActionLink("Play quiz", "StartQuiz", new { quizid = ViewBag.quizid })
+    </div>
+    <div>
+        <a asp-action="Quizzes">Back to quizzes</a>
+    </div>
+}
+else
+{
+    <div>
+        <a asp-action="Quizzes">Back to quizzes</a>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Achieved Score
+                </th>
+                <th>
+                    Max score quiz
+                </th>
+                <th>
+                    Username
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FinalScore)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MaxScore)
+                    </td>
+                    <td>
+                        @if (item.AppUser != null)
+                        {
+                            @Html.DisplayFor(modelItem => item.AppUser.UserName)
+                        }
+                        else
+                        {
+                            <p>User not known</p>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+

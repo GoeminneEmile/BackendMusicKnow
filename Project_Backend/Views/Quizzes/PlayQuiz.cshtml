@@ -1,0 +1,30 @@
+﻿@model Project_Backend.Models.ViewModels.ScoreUserVM
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>PlayQuiz</title>
+    <link rel="stylesheet" href="~/css/CustomCss.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <h1>@Model.QName</h1>
+    <div class="grid-container">
+        <div class="QName">
+            <h2>@Model.Question.QuestionName</h2>
+        </div>
+        <div class="QImage">
+            <img src="~/images/@(Model.Question.QuestionId.ToString() + ".jpg")" style="width: 65%;" />
+        </div>
+        <div class="QAnswers">
+            @for (int i = 0; i < Model.Answers.Count(); i++)
+            {
+                <div class="form-group">
+                    @Html.ActionLink(Model.Answers[i].AnswerN, "NextQuestion", new { QId = Model.QId, QName = Model.QName, QIndex = Model.QIndex, Correct = Model.Answers[i].Correct, Score = ViewBag.Score }, new { @class = "btn btn-primary btn-large"  })
+                </div>
+            }
+        </div>
+    </div>
+</body>
+</html>
