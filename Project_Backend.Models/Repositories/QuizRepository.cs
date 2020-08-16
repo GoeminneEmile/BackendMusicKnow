@@ -119,6 +119,21 @@ namespace Project_Backend.Models.Repositories
             }
         }
 
+        public async Task<Quizzes> EditQuizAsync(Quizzes quiz)
+        {
+            try
+            {
+                var result = _context.Quizzes.Update(quiz);
+                await _context.SaveChangesAsync();
+                return quiz;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.InnerException.Message);
+                return null;
+            }
+        }
+
         public async Task<ApiDelete> AddQuizDeletedAsync(ApiDelete api)
         {
             try

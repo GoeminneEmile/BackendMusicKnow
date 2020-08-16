@@ -41,10 +41,17 @@ namespace Project_Backend.Api.Controllers
                 List<Quiz_DTO> quiz_DTOs = new List<Quiz_DTO>();
                 foreach (var obj in quizzes)
                 {
-                    obj.Name = "";
                     quiz_DTO = QuizMapper.ConvertTo_DTO(obj, ref quiz_DTO);
-                    quiz_DTOs.Add(quiz_DTO);
+                    quiz_DTOs.Add(new Quiz_DTO { 
+                        Name = quiz_DTO.Name,
+                        QID = quiz_DTO.QID,
+                        Description = quiz_DTO.Description,
+                        QuestionCount = quiz_DTO.QuestionCount,
+                        Difficulty = quiz_DTO.Difficulty,
+                        CreatorName = quiz_DTO.CreatorName,
+                    }) ;
                 }
+
                 return Ok(quiz_DTOs);
             }
             catch (Exception ex)
@@ -126,6 +133,26 @@ namespace Project_Backend.Api.Controllers
                 var result = await _quizRepository.DeleteAsyncApi(quizid);
                 Debug.WriteLine(result);
                 return Ok(logs_DTO);
+            }
+            catch (Exception ex)
+            {
+                returnMessage = $"Foutief of ongeldig request: {ex.Message}"; ModelState.AddModelError("", returnMessage);
+            }
+            return BadRequest(returnMessage);
+        }
+        // Post: api/Update
+        [Authorize]
+        [HttpPut("Update", Name = "UpdateQuiz")]
+        [Authorize(AuthenticationSchemes = AuthSchemes, Roles = "Administrator")]
+        public async Task<IActionResult> UpdateQuiz(string Name,string quizid)
+        {
+            var returnMessage = "";
+            try
+            {
+                Quizzes quiz = await _quizRepository.GetQuizForQuizIdAsync(Guid.Parse(quizid));
+                quiz.Name = Name;
+                var result = await _quizRepository.EditQuizAsync(quiz);
+                return Ok(result);
             }
             catch (Exception ex)
             {

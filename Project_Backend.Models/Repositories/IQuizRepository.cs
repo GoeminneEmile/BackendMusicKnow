@@ -8,6 +8,7 @@ namespace Project_Backend.Models.Repositories
     public interface IQuizRepository
     {
         Task<Quizzes> AddQuizAsync(Quizzes quiz);
+        Task<Quizzes> EditQuizAsync(Quizzes quiz);
         Task<Quizzes> DeleteAsync(Guid quizid);
         Task<Quizzes> DeleteAsyncApi(Guid quizid);
         Task<IEnumerable<Quizzes>> GetAllQuizzesAsync();
