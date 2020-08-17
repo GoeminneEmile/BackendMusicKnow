@@ -63,6 +63,9 @@ namespace Project_Backend
 
             app.UseAuthentication();
             app.UseAuthorization();
+            MusicKnowDbContextExtensions.SeedRoles(roleMgr).Wait();
+            MusicKnowDbContextExtensions.SeedUsers(usrMgr).Wait();
+
 
 
             app.UseEndpoints(endpoints =>
