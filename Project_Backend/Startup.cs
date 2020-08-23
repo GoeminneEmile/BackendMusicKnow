@@ -34,6 +34,7 @@ namespace Project_Backend
             services.AddScoped<IQuestionRepository, QuestionRepository>();
             services.AddScoped<IAnswerRepository, AnswerRepository>();
             services.AddScoped<IScoreRepository, ScoreRepository>();
+            services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddDbContext<MusicKnowDbContext>(options =>
                 options.UseSqlServer(
@@ -63,9 +64,6 @@ namespace Project_Backend
 
             app.UseAuthentication();
             app.UseAuthorization();
-            MusicKnowDbContextExtensions.SeedRoles(roleMgr).Wait();
-            MusicKnowDbContextExtensions.SeedUsers(usrMgr).Wait();
-
 
 
             app.UseEndpoints(endpoints =>

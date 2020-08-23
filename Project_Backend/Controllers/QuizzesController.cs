@@ -22,18 +22,20 @@ namespace Project_Backend.Web
         private readonly IHostingEnvironment _he;
         private readonly IQuizRepository _quizRepository;
         private readonly IScoreRepository _scoreRepository;
+        private readonly ICommentRepository _commentRepository;
         private readonly IAnswerRepository _answerRepository;
         private readonly IQuestionRepository _questionRepository;
         private readonly UserManager<AppUser> _userManager;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         [Obsolete]
-        public QuizzesController(IQuizRepository quizRepository, IAnswerRepository answerRepository, IQuestionRepository questionRepository, IScoreRepository scoreRepository, UserManager<AppUser> userManager, IHostingEnvironment e, IHttpContextAccessor httpContextAccessor)
+        public QuizzesController(IQuizRepository quizRepository, ICommentRepository commentRepository, IAnswerRepository answerRepository, IQuestionRepository questionRepository, IScoreRepository scoreRepository, UserManager<AppUser> userManager, IHostingEnvironment e, IHttpContextAccessor httpContextAccessor)
         {
             _he = e;
             _userManager = userManager;
             _quizRepository = quizRepository;
             _scoreRepository = scoreRepository;
+            _commentRepository = commentRepository;
             _answerRepository = answerRepository;
             _questionRepository = questionRepository;
             _httpContextAccessor = httpContextAccessor;
@@ -60,6 +62,15 @@ namespace Project_Backend.Web
             var result = await _scoreRepository.GetAllScoresForQuizzesAsync(quizid);
             ViewBag.quizid = quizid;
             return View(result);
+        }
+
+        [Authorize(Roles = "Administrator, User")]
+        public async Task<ActionResult> CommentQuizAsync(string quizid)
+        {
+            var result = await _commentRepository.GetAllCommentsForQuizzesAsync(quizid);
+            ViewBag.quizid = quizid;
+            Debug.WriteLine(result);
+            return View("CommentsQuiz", result);
         }
 
         [Authorize(Roles = "Administrator, User")]

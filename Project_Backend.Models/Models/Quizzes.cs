@@ -32,6 +32,7 @@ namespace Project_Backend.Models.Models
         public virtual AppUser AppUser { get; set; }
         public virtual IList<Questions> Questions { get; set; }
         public virtual IList<Score> ScoreTables { get; set; }
+        public virtual IList<Comment> CommentTables { get; set; }
 
         public enum Difficulties
         {

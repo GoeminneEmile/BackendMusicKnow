@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Project_Backend.Models.Data;
 
 namespace Project_Backend.Models.Migrations
 {
     [DbContext(typeof(MusicKnowDbContext))]
-    partial class MusicKnowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200819082253_CommentsCreate")]
+    partial class CommentsCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

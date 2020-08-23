@@ -6,10 +6,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Project_Backend.Models.Models;
 using Project_Backend.Models.Data;
-using Project_Backend.Models.Models;
 
-[assembly: HostingStartup(typeof(WickedQuiz.Web.Areas.Identity.IdentityHostingStartup))]
-namespace WickedQuiz.Web.Areas.Identity
+[assembly: HostingStartup(typeof(Project_Backend.Web.Areas.Identity.IdentityHostingStartup))]
+namespace Project_Backend.Web.Areas.Identity
 {
     public class IdentityHostingStartup : IHostingStartup
     {

@@ -13,5 +13,6 @@ namespace Project_Backend.Models.ViewModels
         public int QIndex { get; set; }
         public Questions Question { get; set; }
         public IList<Answer> Answers { get; set; }
+        public IList<Comment> comments { get; set; }
     }
 }

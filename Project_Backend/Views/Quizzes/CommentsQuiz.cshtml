@@ -1,6 +1,6 @@
-﻿@model IEnumerable< Project_Backend.Models.Models.Comment>
+﻿@model IEnumerable< Project_Backend.Models.Models.Score>
 @{
-    ViewData["Title"] = "CommentsQuiz";
+    ViewData["Title"] = "ScoresQuiz";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -25,13 +25,13 @@ else
         <thead>
             <tr>
                 <th>
-                    Comment
+                    Achieved Score
                 </th>
                 <th>
-                    UID
+                    Max score quiz
                 </th>
                 <th>
-                    Quiz
+                    Username
                 </th>
             </tr>
         </thead>
@@ -40,18 +40,20 @@ else
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Comments)
+                        @Html.DisplayFor(modelItem => item.FinalScore)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MaxScore)
                     </td>
                     <td>
                         @if (item.AppUser != null)
                         {
-                    @Html.DisplayFor(modelItem => item.AppUserId) }
-                                        else
-                                        {
-                    <p>User not known</p>}
-                    </td>
-                    <td>
-                            @Html.DisplayFor(modelItem => item.Quiz)
+                            @Html.DisplayFor(modelItem => item.AppUser.UserName)
+                        }
+                        else
+                        {
+                            <p>User not known</p>
+                        }
                     </td>
                 </tr>
             }

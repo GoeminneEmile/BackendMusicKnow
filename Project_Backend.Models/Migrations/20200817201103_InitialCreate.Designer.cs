@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Project_Backend.Models.Data;
 
 namespace Project_Backend.Models.Migrations
 {
     [DbContext(typeof(MusicKnowDbContext))]
-    partial class MusicKnowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200817201103_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -357,31 +359,6 @@ namespace Project_Backend.Models.Migrations
                     b.ToTable("BonusPoints");
                 });
 
-            modelBuilder.Entity("Project_Backend.Models.Models.Comment", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("AppUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Comments")
-                        .HasColumnType("nvarchar(450)")
-                        .HasMaxLength(450);
-
-                    b.Property<Guid>("QuizId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AppUserId");
-
-                    b.HasIndex("QuizId");
-
-                    b.ToTable("Comments");
-                });
-
             modelBuilder.Entity("Project_Backend.Models.Models.Questions", b =>
                 {
                     b.Property<Guid>("QuestionId")
@@ -527,19 +504,6 @@ namespace Project_Backend.Models.Migrations
                     b.HasOne("Project_Backend.Models.Models.Questions", "Question")
                         .WithMany("Answers")
                         .HasForeignKey("QuestionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Project_Backend.Models.Models.Comment", b =>
-                {
-                    b.HasOne("Project_Backend.Models.Models.AppUser", "AppUser")
-                        .WithMany()
-                        .HasForeignKey("AppUserId");
-
-                    b.HasOne("Project_Backend.Models.Models.Quizzes", "Quiz")
-                        .WithMany("CommentTables")
-                        .HasForeignKey("QuizId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

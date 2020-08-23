@@ -21,6 +21,7 @@ namespace Project_Backend.Models.Data
         public DbSet<Answer> Answers { get; set; }
         public DbSet<Score> Scores { get; set; }
         public DbSet<BonusPoints> BonusPoints { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -31,6 +32,7 @@ namespace Project_Backend.Models.Data
             modelBuilder.Entity<ApiLog>().ToTable("ApiLogs");
             modelBuilder.Entity<ApiDelete>().ToTable("ApiDeletes");
             modelBuilder.Entity<BonusPoints>().ToTable("BonusPoints");
+            modelBuilder.Entity<Comment>().ToTable("Comments");
             base.OnModelCreating(modelBuilder);
 
         }

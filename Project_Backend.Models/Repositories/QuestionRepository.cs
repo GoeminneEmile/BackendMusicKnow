@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Project_Backend.Models.Data;
-using Project_Backend.Models.Data;
 using Project_Backend.Models.Models;
 using System;
 using System.Collections.Generic;
